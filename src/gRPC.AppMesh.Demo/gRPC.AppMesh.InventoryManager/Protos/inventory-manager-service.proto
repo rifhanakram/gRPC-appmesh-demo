@@ -16,4 +16,5 @@ message InventoryAdjustmentRequest {
 
 message InventoryAdjustmentResponse {
   int64 availableQuantity = 1;
+  string message = 2;
 }
