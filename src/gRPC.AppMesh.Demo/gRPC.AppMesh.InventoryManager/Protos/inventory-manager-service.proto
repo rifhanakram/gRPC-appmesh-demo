@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "gRPC.AppMesh.InventoryManager.Protos";
+
+package inventory;
+
+service InventoryManagerService {
+  rpc AdjustInventory (InventoryAdjustmentRequest) returns (InventoryAdjustmentResponse);
+}
+
+message InventoryAdjustmentRequest {
+  int64 productId = 1;
+  int64 quantity = 2;
+  string typeOfAdjustment = 3; //SALE | PURCHASE | REFUND
+}
+
+message InventoryAdjustmentResponse {
+  int64 availableQuantity = 1;
+}
