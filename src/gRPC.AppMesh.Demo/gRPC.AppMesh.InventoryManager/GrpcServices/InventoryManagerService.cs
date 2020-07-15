@@ -14,7 +14,9 @@ namespace gRPC.AppMesh.InventoryManager.GrpcServices
             
             return Task.FromResult(new InventoryAdjustmentResponse
             {
-                AvailableQuantity = ( random.Next(1000,2000) - request.Quantity )
+                AvailableQuantity = ( random.Next(1000,2000) - request.Quantity ),
+                Message = $"{request.TypeOfAdjustment} was made for Quantity : {request.Quantity} on " +
+                          $"ProductId : {request.ProductId}"
             });
         }
     }
