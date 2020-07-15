@@ -10,11 +10,11 @@ namespace gRPC.AppMesh.InventoryManager.GrpcServices
         public override Task<InventoryAdjustmentResponse> AdjustInventory(InventoryAdjustmentRequest request, 
             ServerCallContext context)
         {
-            var randomStockCount = new Random();
+            var random = new Random();
             
             return Task.FromResult(new InventoryAdjustmentResponse
             {
-                AvailableQuantity = ( randomStockCount.Next(1000,2000) - request.Quantity),
+                AvailableQuantity = ( random.Next(1000,2000) - request.Quantity ),
                 Message = $"{request.TypeOfAdjustment} was made for Quantity : {request.Quantity} on " +
                           $"ProductId : {request.ProductId}"
             });

@@ -1,4 +1,5 @@
 ﻿using gRPC.AppMesh.InventoryManager.GrpcServices;
+using Grpc.HealthCheck;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,6 +14,8 @@ namespace gRPC.AppMesh.InventoryManager
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHealthChecks();
+            services.AddSingleton<HealthServiceImpl>();
             services.AddGrpc();
         }
 
@@ -29,6 +32,8 @@ namespace gRPC.AppMesh.InventoryManager
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/health");
+                endpoints.MapGrpcService<HealthServiceImpl>();
                 endpoints.MapGrpcService<InventoryManagerGrpcService>();
                 endpoints.MapGet("/", async context =>
                 {
